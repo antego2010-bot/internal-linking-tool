@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to export Search Console and GA4 data · Internal linking tool</title>
+<style>
+body { font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; color: #0e1a33; }
+h1 { font-size: 28px; line-height: 1.25; } h2 { font-size: 20px; margin-top: 34px; }
+a { color: #1f5fd6; }
+ol li, ul li { margin: 6px 0; }
+.box { border: 1px solid #dfe4ee; background: #f4f6fa; border-radius: 10px; padding: 12px 16px; }
+code, .k { background: #e6eefc; border-radius: 5px; padding: 1px 6px; font-size: 14px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; } th, td { border-bottom: 1px solid #dfe4ee; text-align: left; padding: 6px 8px; }
+@media (prefers-color-scheme: dark) { body { background: #0c1220; color: #e7ecf6; } a { color: #6c9cff; } .box { background: #141c2e; border-color: #27324a; } code, .k { background: #1b2a4d; } th, td { border-color: #27324a; } }
+</style>
+</head>
+<body>
+<p><a href="/#settings">← Back to the tool</a></p>
+<h1>How to add your Search Console and GA4 data</h1>
+<p>Moz shows one ranking page per keyword. Search Console shows <b>every</b> page Google tested for a keyword, with clicks and impressions, so it's what reveals real cannibalization. GA4 adds sessions per page so you can see which page is worth keeping. You'll put both in one Google Sheet with two free add-ons, download it, and upload it in Settings. About 5 minutes.</p>
+<div class="box"><b>Prefer to have Claude do it?</b> <a href="/skills/url-library-google-sheets-skill.zip" download>Download the Claude skill</a>, add it in Claude (Settings → Capabilities → Skills → Upload skill), then ask: <i>"Build my URL library sheet for example.com"</i>. With Claude in Chrome, Claude can click through the add-ons for you; otherwise it walks you through each step.</div>
+
+<h2>1. Search Console: query × page data</h2>
+<ol>
+<li>Create a new Google Sheet (<a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a>) and name it, e.g. <span class="k">URL library – example.com</span>.</li>
+<li>Install <a href="https://workspace.google.com/marketplace/app/search_analytics_for_sheets/1035646374811" target="_blank" rel="noopener">Search Analytics for Sheets</a>: <b>Extensions → Add-ons → Get add-ons</b>, search for it, click <b>Install</b> and allow access with the Google account that can see your Search Console property.</li>
+<li>Open <b>Extensions → Search Analytics for Sheets → Open Sidebar</b>, then on the <b>Requests</b> tab set:
+  <ul>
+  <li><b>Verified site:</b> your property (a domain property like <span class="k">sc-domain:example.com</span> is best)</li>
+  <li><b>Date range:</b> the last 3 months</li>
+  <li><b>Search type:</b> Web</li>
+  <li><b>Group by:</b> <span class="k">Query</span> and <span class="k">Page</span> (both, in that order)</li>
+  <li><b>Rows returned:</b> as many as allowed (e.g. 100,000; larger sites can use 50,000)</li>
+  <li><b>Results sheet:</b> a new sheet, rename it <span class="k">Search Console</span></li>
+  </ul></li>
+<li>Click <b>Request data</b>. You'll get columns <b>Query, Page, Clicks, Impressions, CTR, Position</b>. Leave them as they are.</li>
+</ol>
+<p class="box">Don't use the Export button in Search Console's Performance report: it gives queries and pages separately, and the tool needs them paired (which pages show for which query).</p>
+
+<h2>2. GA4: sessions per page</h2>
+<ol>
+<li>In the same Sheet, install <a href="https://workspace.google.com/marketplace/app/ga4_reports_builder_for_google_analytics/589269949355" target="_blank" rel="noopener">GA4 Reports Builder for Google Analytics</a> (Google's official add-on): <b>Extensions → Add-ons → Get add-ons</b>.</li>
+<li>Open <b>Extensions → GA4 Reports Builder for Google Analytics → Create new report</b> and set:
+  <ul>
+  <li><b>Account / Property:</b> your site's GA4 property</li>
+  <li><b>Date range:</b> last 365 days</li>
+  <li><b>Dimensions:</b> <span class="k">pagePath</span> (or <span class="k">landingPage</span> if you prefer entrances)</li>
+  <li><b>Metrics:</b> <span class="k">sessions</span></li>
+  <li><b>Limit:</b> 100000</li>
+  </ul></li>
+<li>Click <b>Create report</b>, then <b>Extensions → GA4 Reports Builder → Run reports</b>. A new sheet appears with the page paths and sessions.</li>
+</ol>
+
+<h2>3. Download and upload</h2>
+<ol>
+<li><b>File → Download → Microsoft Excel (.xlsx)</b>. Both sheets go into one file.</li>
+<li>In the tool, open <a href="/#settings">Settings</a> → <b>Add your Search Console and GA4 data</b> → upload the file. It's read in your browser, saved there, and only sent to build your library: never stored on the server.</li>
+<li>Click <b>Build the library</b>. Rebuild monthly: re-run the add-on requests (both have a refresh/run option), download, upload, rebuild.</li>
+</ol>
+
+<h2>What the tool looks for</h2>
+<table>
+<tr><th>Data</th><th>Columns it needs</th><th>Header names it recognises</th></tr>
+<tr><td>Search Console</td><td>query, page, clicks, impressions, position</td><td>Query / Keyword · Page / URL / Landing page · Clicks · Impressions · Position / Avg position</td></tr>
+<tr><td>GA4</td><td>page, sessions</td><td>pagePath / Page path / landingPage / Page location / URL · Sessions</td></tr>
+<tr><td>Your own URL library</td><td>a URL column plus a title, keyword or topic column</td><td>URL / Address · Title · Target keyword / Keyword · Topic / Category · Type / Section (or one tab per page type) · Sessions / Clicks. Loads straight away, no build needed</td></tr>
+</table>
+<p>Header rows don't have to be the first row (the GA4 add-on puts report details above them), and CSV files work too.</p>
+</body>
+</html>

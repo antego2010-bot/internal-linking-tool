@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy · Internal linking tool</title>
+<style>
+body { font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; color: #0e1a33; }
+h1 { font-size: 26px; } h2 { font-size: 18px; margin-top: 28px; }
+a { color: #1f5fd6; }
+@media (prefers-color-scheme: dark) { body { background: #0c1220; color: #e7ecf6; } a { color: #6c9cff; } }
+</style>
+</head>
+<body>
+<p><a href="/">← Back to the tool</a></p>
+<h1>Privacy</h1>
+<p>The internal linking tool suggests internal links for your drafts and audits the internal links on your site. This page explains what it reads, where that data goes and what it keeps.</p>
+
+<h2>Your API keys</h2>
+<p>Your Moz API token and Claude API key are stored in your own browser (session storage, or local storage if you tick "remember"). They are sent to this app's server only with your own requests, which forwards them to Moz or Anthropic and does not store or log them.</p>
+
+<h2>Search Console and GA4 files you upload</h2>
+<ul>
+<li>Files you upload in Settings are read in your browser. The Search Console rows (query, page, clicks, impressions, position) and GA4 rows (page, sessions) are saved in your browser only (IndexedDB).</li>
+<li>When you build the library, they are sent to this app's server once, processed in memory to build your URL library, and returned to your browser. They are never written to disk, logged or stored on the server.</li>
+<li>Your library is saved in your browser only. You can delete it and your uploaded files any time in Settings, or download the library as an Excel file.</li>
+</ul>
+
+<h2>Your drafts</h2>
+<p>Drafts you upload or paste are read in your browser and saved there (your last draft and its suggestions, so they're still there next visit). If you load a Google Doc link or a live page URL, this app's server fetches it once and passes it to your browser; it isn't stored.</p>
+
+<h2>Claude</h2>
+<p>When you ask for link suggestions, the draft text, your URL library (URLs, titles, keywords, topics, traffic) and passages from your pages are sent to Anthropic's API with your own key. Anthropic's <a href="https://www.anthropic.com/legal/commercial-terms" target="_blank" rel="noopener">commercial terms</a> apply to that request.</p>
+
+<h2>Site index</h2>
+<p>To search your pages and count internal links, the app crawls your public website (sitemap first, respecting robots.txt) and stores that public page list on the server so it can be reused for 30 days. It contains only what anyone can see on your public pages (titles, text and internal links).</p>
+
+<h2>Cookies</h2>
+<p>The app sets no cookies. No analytics or advertising trackers are used.</p>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "site": "Example",
+  "domain": "example.com",
+  "newPostPath": "/blog/",
+  "content_selector": "article .entry-content",
+  "sections": [
+    {
+      "key": "Product",
+      "label": "Product",
+      "pattern": "^/(product|pricing|features)",
+      "role": "commercial",
+      "priority": 1
+    },
+    {
+      "key": "Guide",
+      "label": "Guides",
+      "pattern": "^/guides/",
+      "priority": 2
+    },
+    {
+      "key": "Blog",
+      "label": "Blog",
+      "pattern": "^/blog/",
+      "priority": 3
+    }
+  ],
+  "brand_terms": [
+    "example",
+    "example pro"
+  ],
+  "exclude_patterns": [
+    "^/blog/(tag|author|page)/"
+  ],
+  "library": {
+    "min_date": "2022-01-01",
+    "min_date_sections": [
+      "Blog"
+    ]
+  },
+  "locale": "en-US"
+}
