@@ -35,7 +35,7 @@ body = rep(body, "Every page ranked by quick-win score: Search Console clicks (l
 body = rep(body, "Counts contextual links in article body text across the indexed blog, Learn and guide pages. Menus, footers and links on product pages aren't counted.", "Counts contextual links in article body text across every indexed page, worked out in your browser from the content index. Menus and footers aren't counted.")
 body = re.sub(r'<select id="au-sec" style="width:auto">.*?</select>', '<select id="au-sec" style="width:auto"><option value="">All page types</option></select>', body, count=1, flags=re.S)
 body = rep(body, "</main>", (HERE / "settings.html").read_text() + "</main>")
-body = body.rstrip() + '\n<footer class="foot small muted">Keys, libraries and drafts stay in your browser. <a href="/privacy.html">Privacy</a> · Built with the Moz API and Claude.</footer>\n'
+body = body.rstrip() + '\n<footer class="foot small muted">Keys, libraries and drafts stay in your browser. <a href="privacy.html">Privacy</a> · Built with the Moz API and Claude.</footer>\n'
 
 # ---------- JS ----------
 s = script
@@ -170,7 +170,7 @@ cap("sample").then(s => { SAMPLE = s; });''', '''applyDemo();
 bindSettings();
 route();
 (async () => {
-  try { const h = await fetch("/api/health").then(r => r.ok ? r.json() : {}); ST.mock = !!h.mock; } catch (e) {}
+  try { const h = await fetch(API_BASE + "/api/health").then(r => r.ok ? r.json() : {}); ST.mock = !!h.mock; } catch (e) {}
   renderLibHeader();
   await openSite();
   if (siteDomain()) refreshSite();
@@ -187,7 +187,7 @@ for bad in ["moz.com", "Moz ", "MCP", "cap(", "audit.json", "meta.json", "librar
     if hits: sys.exit(f"leftover {bad!r}: {hits}")
 
 app = "(() => {\n" + (HERE / "extra.js").read_text() + "\n" + s + "\n})();\n"
-html = head + "<body>" + body + '<script src="/app.js"></script>\n</body>\n</html>\n'
+html = head + "<body>" + body + '<script src="app.js"></script>\n</body>\n</html>\n'
 OUT.mkdir(exist_ok=True)
 (OUT / "app.js").write_text(app)
 (OUT / "index.html").write_text(html)
