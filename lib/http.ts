@@ -1,5 +1,5 @@
 // Fetching third-party pages politely and safely.
-export const UA = "InternalLinkingTool/1.0 (+https://internal-linking-tool.vercel.app; internal link suggestions)";
+export const UA = "InternalLinkingTool/1.0 (+https://mozapitools.app/internal-linking/; internal link suggestions)";
 
 export class FetchError extends Error {
   status: number;
